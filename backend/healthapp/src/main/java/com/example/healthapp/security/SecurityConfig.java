@@ -40,8 +40,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/patient/**").hasRole("PATIENT")
                         .requestMatchers("/api/telemetry/**").hasAnyRole("DOCTOR", "PATIENT")
                         .requestMatchers("/api/reports/**").permitAll()
-                        .anyRequest().authenticated()
-                )
+                        .anyRequest().authenticated())
                 .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
         http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
@@ -52,7 +51,8 @@ public class SecurityConfig {
     @Bean
     public UrlBasedCorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(List.of("http://localhost:3000"));
+        config.setAllowedOrigins(List.of("http://localhost:3000",
+                "https://health-monitoring-d8wzrmk5m-mitul-s-projects-8133602c.vercel.app"));
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("Authorization", "Content-Type"));
         config.setAllowCredentials(true);
