@@ -1,0 +1,5 @@
+.idea/
+*.zip
+*.log
+.DS_Store
+frontend2/
