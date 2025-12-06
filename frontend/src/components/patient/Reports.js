@@ -44,11 +44,7 @@ const Reports = ({ patientId }) => {
       formData.append("doctorComment", doctorComment);
 
       // Use a fresh axios instance to avoid global interceptors attaching Auth headers
-      const res = await axios.post("https://healthapp-backend-91mm.onrender.com/api/reports/upload", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data"
-        }
-      });
+      const res = await axios.post("https://healthapp-backend-91mm.onrender.com/api/reports/upload", formData);
 
       setReports([res.data, ...reports]);
       setFile(null);
