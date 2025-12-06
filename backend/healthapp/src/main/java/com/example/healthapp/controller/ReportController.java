@@ -21,9 +21,8 @@ public class ReportController {
     @Autowired
     private Cloudinary cloudinary;
 
-
     public ReportController(FileUploadService fileUploadService,
-                            ReportRepository reportRepository) {
+            ReportRepository reportRepository) {
         this.fileUploadService = fileUploadService;
         this.reportRepository = reportRepository;
     }
@@ -33,9 +32,8 @@ public class ReportController {
             @RequestParam("file") MultipartFile file,
             @RequestParam("patientId") String patientId,
             @RequestParam("name") String name,
-            @RequestParam("doctorComment") String doctorComment
-    ) throws Exception {
-
+            @RequestParam("doctorComment") String doctorComment) throws Exception {
+        System.out.println("DEBUG: connection hit uploadReport. PatientId: " + patientId);
         String fileUrl = fileUploadService.uploadFile(file);
 
         Report report = new Report();
@@ -57,12 +55,12 @@ public class ReportController {
         return ResponseEntity.ok(reports);
     }
 
-//    @GetMapping("/{id}")
-//    public ResponseEntity<?> getReportById(@PathVariable String id) {
-//        return reportRepository.findById(id)
-//                .map(ResponseEntity::ok)
-//                .orElse(ResponseEntity.notFound().build());
-//    }
+    // @GetMapping("/{id}")
+    // public ResponseEntity<?> getReportById(@PathVariable String id) {
+    // return reportRepository.findById(id)
+    // .map(ResponseEntity::ok)
+    // .orElse(ResponseEntity.notFound().build());
+    // }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteReport(@PathVariable String id) {
@@ -75,7 +73,4 @@ public class ReportController {
         }
     }
 
-
-
 }
-
