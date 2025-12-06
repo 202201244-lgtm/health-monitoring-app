@@ -35,11 +35,13 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/login", "/api/auth/register", "/test").permitAll()
+                        .requestMatchers("/api/reports/**").permitAll() // Moved up
+                        .requestMatchers(org.springframework.http.HttpMethod.POST, "/api/reports/upload").permitAll() // Explicit
+                                                                                                                      // POST
                         .requestMatchers("/api/admin/**").hasRole("ADMIN")
                         .requestMatchers("/api/doctor/**").hasRole("DOCTOR")
                         .requestMatchers("/api/patient/**").hasRole("PATIENT")
                         .requestMatchers("/api/telemetry/**").hasAnyRole("DOCTOR", "PATIENT")
-                        .requestMatchers("/api/reports/**").permitAll()
                         .anyRequest().authenticated())
                 .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
