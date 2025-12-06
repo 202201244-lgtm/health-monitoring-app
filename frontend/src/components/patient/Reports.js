@@ -1,4 +1,5 @@
-import api from "../../api/api"; // Import centralized api
+import api from "../../api/api";
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 
 const Reports = ({ patientId }) => {
@@ -42,8 +43,11 @@ const Reports = ({ patientId }) => {
       formData.append("patientId", patientId);
       formData.append("doctorComment", doctorComment);
 
-      const res = await api.post("/reports/upload", formData, {
-        skipAuth: true,
+      // Use a fresh axios instance to avoid global interceptors attaching Auth headers
+      const res = await axios.post("https://healthapp-backend-91mm.onrender.com/api/reports/upload", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data"
+        }
       });
 
       setReports([res.data, ...reports]);
