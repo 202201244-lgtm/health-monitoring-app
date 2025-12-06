@@ -14,6 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/reports")
+@CrossOrigin(origins = "*") // Handle CORS at MVC level since Security is bypassed
 public class ReportController {
 
     private final FileUploadService fileUploadService;
