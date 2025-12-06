@@ -42,9 +42,7 @@ const Reports = ({ patientId }) => {
       formData.append("patientId", patientId);
       formData.append("doctorComment", doctorComment);
 
-      const res = await api.post("/reports/upload", formData, {
-        headers: { "Content-Type": "multipart/form-data" },
-      });
+      const res = await api.post("/reports/upload", formData);
 
       setReports([res.data, ...reports]);
       setFile(null);
