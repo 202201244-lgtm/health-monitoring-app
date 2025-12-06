@@ -14,18 +14,22 @@ import {
 
 ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement, Tooltip, Legend);
 
-const PATIENT_ID = "6915b6d9ecc8b306014c2ad0";
+// MQTT Broker Config
 const MQTT_BROKER = "wss://eeeaf4837dbe4d58909102526709abf6.s1.eu.hivemq.cloud:8884/mqtt";
 const MQTT_Username = 'mitulsudani188';
 const MQTT_Password = 'Mitulsudani188';
+// Default ID matching the dummy publisher
+const DEFAULT_PATIENT_ID = "693444c5fd18e33e4f7ef85c";
 
-// MQTT Topics
-const HEART_TOPIC = `patient/${PATIENT_ID}/heartRate`;
-const SPO2_TOPIC = `patient/${PATIENT_ID}/spo2`;
-const TEMP_TOPIC = `patient/${PATIENT_ID}/temperature`;
-const ECG_TOPIC = `patient/${PATIENT_ID}/ecg`;
+export default function Telemetry({ patientId }) {
+  const activePatientId = patientId || DEFAULT_PATIENT_ID;
 
-export default function Telemetry() {
+  // MQTT Topics
+  const HEART_TOPIC = `patient/${activePatientId}/heartRate`;
+  const SPO2_TOPIC = `patient/${activePatientId}/spo2`;
+  const TEMP_TOPIC = `patient/${activePatientId}/temperature`;
+  const ECG_TOPIC = `patient/${activePatientId}/ecg`;
+
   const [heartData, setHeartData] = useState([]);
   const [spo2Data, setSpo2Data] = useState([]);
   const [tempData, setTempData] = useState([]);
@@ -45,6 +49,7 @@ export default function Telemetry() {
       console.log("MQTT Connected");
       client.subscribe([HEART_TOPIC, SPO2_TOPIC, TEMP_TOPIC, ECG_TOPIC], (err) => {
         if (err) console.error("Subscription error:", err);
+        else console.log(`Subscribed to topics for patient: ${activePatientId}`);
       });
     });
 

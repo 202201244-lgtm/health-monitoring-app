@@ -5,7 +5,7 @@ const MQTT_BROKER = "mqtts://eeeaf4837dbe4d58909102526709abf6.s1.eu.hivemq.cloud
 const MQTT_USERNAME = "mitulsudani188";
 const MQTT_PASSWORD = "Mitulsudani188";
 
-const PATIENT_ID = "6915b6d9ecc8b306014c2ad0";
+const PATIENT_ID = "693444c5fd18e33e4f7ef85c";
 const HEART_TOPIC = `patient/${PATIENT_ID}/heartRate`;
 const SPO2_TOPIC = `patient/${PATIENT_ID}/spo2`;
 
